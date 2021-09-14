@@ -1,7 +1,16 @@
 module.exports = async (req, res) => {
-  const { body } = req;
+  const {
+    body: {
+      intent: {
+        params: {
+          types
+        }
+      } 
+    } 
+  } = req;
 
-  console.log(body);
+
+  console.log(types);
 
   res.json();
 }
