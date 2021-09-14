@@ -16,45 +16,48 @@ module.exports = async (req, res) => {
   console.log(types);
 
   res.json({
-    fulfillmentMessages: [
-    {
-      platform: 'ACTIONS_ON_GOOGLE',
-      simpleResponses: {
-        simpleResponses: [
-          {
-            textToSpeech: 'This is a test!'
+    expectedInputs: [
+      {
+        possibleIntents: [{ intent: 'actions.intent.TEXT' }],
+        inputPrompt: {
+          richInitialPrompt: {
+            items: [
+              {
+                simpleResponse: {
+                  textToSpeech: 'This is a test!'
+                }
+              }
+            ]
           }
-        ]
+        }
       }
-    },
-    {
-      text: {
-        text: ['This is a test!']
-      }
-    }
-  ]});
+    ]
+  });
 }
 
-// return {
-// fulfillmentMessages: [
-//   {
-//     platform: 'ACTIONS_ON_GOOGLE',
-//     simpleResponses: {
-//       simpleResponses: [
+// {
+//   "expectUserResponse": true,
+//   "expectedInputs": [
+//     {
+//       "possibleIntents": [
 //         {
-//           textToSpeech: text
+//           "intent": "actions.intent.TEXT"
 //         }
-//       ]
+//       ],
+//       "inputPrompt": {
+//         "richInitialPrompt": {
+//           "items": [
+//             {
+//               "simpleResponse": {
+//                 "textToSpeech": "You are using the Actions SDK. Do you want to hear more about it?"
+//               }
+//             }
+//           ]
+//         }
+//       }
 //     }
-//   },
-//   {
-//     text: {
-//       text: [text]
-//     }
-//   }
-// ]
-// };
-
+//   ]
+// }
 
 // {
 //   handler: { name: 'Vercel' },
