@@ -13,12 +13,20 @@ const getWeakness = async (req, res) => {
 
   if (resolved.length === 0) throw new Error('No types found!');
 
-  res.prepared('success');
+  res.prepared(resolved.join(','));
 }
 
 
-module.exports = ({ body }, res) => {
-  const { session: { id }, scene } = body;
+module.exports = (req, res) => {
+  const {
+    body: {
+      session: {
+        id 
+      },
+      scene
+    }
+  } = req;
+
   const responseObj = {
     session: {
       id,
@@ -45,7 +53,6 @@ module.exports = ({ body }, res) => {
 
   Promise.resolve()
       .then(() => getWeakness(req, res))
-      .then(response => res.status(200).json(response))
       .catch(err => res.prepared(err.message));
 }
 
