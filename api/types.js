@@ -1,35 +1,28 @@
-module.exports = async (req, res) => {
+const getWeakness = async (req, res) => {
   const {
     body: {
       intent: {
         params: {
           types
         }
-      },
-      session: {
-        id
-      },
-      scene
+      }
     }
   } = req;
 
   const { resolved = [] } = types;
 
-  if (resolved.length === 0) return; // TODO: handle error
+  if (resolved.length === 0) throw new Error('No types found!');
 
-  console.log(types);
+  res.prepared('success');
+}
 
-  res.json({
+
+module.exports = ({ body }, res) => {
+  const { session: { id }, scene } = body;
+  const responseObj = {
     session: {
       id,
       params: {}
-    },
-    prompt: {
-      override: false,
-      firstSimple: {
-        speech: 'Hello World.',
-        text: 'Helloooo World'
-      }
     },
     scene: {
       ...scene,
@@ -37,8 +30,29 @@ module.exports = async (req, res) => {
         name: 'actions.scene.END_CONVERSATION'
       }
     }
-  })
+  }
+  
+  res.prepared = (message) => res.json({
+    ...responseObj,
+    prompt: {
+      override: false,
+      firstSimple: {
+        speech: message,
+        text: message
+      }
+    }
+  });
+
+  Promise.resolve()
+      .then(() => getWeakness(req, res))
+      .then(response => res.status(200).json(response))
+      .catch(err => res.prepared(err.message));
 }
+
+
+
+
+
 
 // {
 //   handler: { name: 'Vercel' },
