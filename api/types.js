@@ -16,19 +16,44 @@ module.exports = async (req, res) => {
   console.log(types);
 
   res.json({
-    expectUserResponse: false,
-    finalResponse: {
-      richResponse: {
-        items: [
+    "expectUserResponse": true,
+    "expectedInputs": [
+      {
+        "inputPrompt": {
+          "richInitialPrompt": {
+            "items": [
+              {
+                "simpleResponse": {
+                  "textToSpeech": "Howdy! I can tell you fun facts about almost any number, like 42. What do you have in mind?",
+                  "displayText": "Howdy! I can tell you fun facts about almost any number, like 42. What do you have in mind?"
+                }
+              }
+            ]
+          }
+        },
+        "possibleIntents": [
           {
-            simpleResponse: {
-              textToSpeech: 'Good bye'
-            }
+            "intent": "actions.intent.TEXT"
           }
         ]
       }
-    }
-  });
+    ]
+  })
+
+  // res.json({
+  //   expectUserResponse: false,
+  //   finalResponse: {
+  //     richResponse: {
+  //       items: [
+  //         {
+  //           simpleResponse: {
+  //             textToSpeech: 'Good bye'
+  //           }
+  //         }
+  //       ]
+  //     }
+  //   }
+  // });
 }
 
 // {
