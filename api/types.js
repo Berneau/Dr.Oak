@@ -16,48 +16,20 @@ module.exports = async (req, res) => {
   console.log(types);
 
   res.json({
-    expectedInputs: [
-      {
-        possibleIntents: [{ intent: 'actions.intent.TEXT' }],
-        inputPrompt: {
-          richInitialPrompt: {
-            items: [
-              {
-                simpleResponse: {
-                  textToSpeech: 'This is a test!'
-                }
-              }
-            ]
+    expectUserResponse: false,
+    finalResponse: {
+      richResponse: {
+        items: [
+          {
+            simpleResponse: {
+              textToSpeech: 'Good bye'
+            }
           }
-        }
+        ]
       }
-    ]
+    }
   });
 }
-
-// {
-//   "expectUserResponse": true,
-//   "expectedInputs": [
-//     {
-//       "possibleIntents": [
-//         {
-//           "intent": "actions.intent.TEXT"
-//         }
-//       ],
-//       "inputPrompt": {
-//         "richInitialPrompt": {
-//           "items": [
-//             {
-//               "simpleResponse": {
-//                 "textToSpeech": "You are using the Actions SDK. Do you want to hear more about it?"
-//               }
-//             }
-//           ]
-//         }
-//       }
-//     }
-//   ]
-// }
 
 // {
 //   handler: { name: 'Vercel' },
