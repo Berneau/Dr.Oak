@@ -5,8 +5,12 @@ module.exports = async (req, res) => {
         params: {
           types
         }
-      } 
-    } 
+      },
+      session: {
+        id
+      },
+      scene
+    }
   } = req;
 
   const { resolved = [] } = types;
@@ -16,48 +20,24 @@ module.exports = async (req, res) => {
   console.log(types);
 
   res.json({
-    expectUserResponse: false
+    session: {
+      id,
+      params: {}
+    },
+    prompt: {
+      override: false,
+      firstSimple: {
+        speech: 'Hello World.',
+        text: 'Helloooo World'
+      }
+    },
+    scene: {
+      ...scene,
+      next: {
+        name: 'actions.scene.END_CONVERSATION'
+      }
+    }
   })
-
-  // res.json({
-  //   "expectUserResponse": true,
-  //   "expectedInputs": [
-  //     {
-  //       "inputPrompt": {
-  //         "richInitialPrompt": {
-  //           "items": [
-  //             {
-  //               "simpleResponse": {
-  //                 "textToSpeech": "Howdy! I can tell you fun facts about almost any number, like 42. What do you have in mind?",
-  //                 "displayText": "Howdy! I can tell you fun facts about almost any number, like 42. What do you have in mind?"
-  //               }
-  //             }
-  //           ]
-  //         }
-  //       },
-  //       "possibleIntents": [
-  //         {
-  //           "intent": "actions.intent.TEXT"
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // })
-
-  // res.json({
-  //   expectUserResponse: false,
-  //   finalResponse: {
-  //     richResponse: {
-  //       items: [
-  //         {
-  //           simpleResponse: {
-  //             textToSpeech: 'Good bye'
-  //           }
-  //         }
-  //       ]
-  //     }
-  //   }
-  // });
 }
 
 // {
